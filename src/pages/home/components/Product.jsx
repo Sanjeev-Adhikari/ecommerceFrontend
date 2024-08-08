@@ -1,20 +1,21 @@
-import axios from 'axios'
+
 import React, { useEffect, useState } from 'react'
 
 import { useDispatch } from 'react-redux'
 import { add } from '../../../store/cartSlice'
+import { fetchProducts } from '../../../store/productSlice'
+import { useSelector } from 'react-redux'
 
-const Product = () => {
- const [products, setProducts] = useState([])
+export default function Product() {
+
  const dispatch = useDispatch()
- const fetchProducts = async ()=>{
-  const response =  await axios.get("http://localhost:3000/api/products")
-  if(response.status = 201){
-    setProducts(response.data.data)
-  }
- }
+ const {data : products,status} = useSelector((state)=>state.product)
+//used redux toolkit for state management and now it doesnot need to done like this
+ //  const fetchProducts = async ()=>{
+
  useEffect(()=>{
-  fetchProducts()
+  //fetchProducts()
+  dispatch(fetchProducts())//This is the new way here data is comming from productReducer that we made in our store
  },[])
 
  const addToCart = (product)=>{
@@ -70,4 +71,3 @@ const Product = () => {
   )
 }
 
-export default Product
