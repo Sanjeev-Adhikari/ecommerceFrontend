@@ -24,13 +24,12 @@ const LoginForm = () => {
   const handleSubmit = (e)=>{
       e.preventDefault()
       dispatch(loginUser(userData))
-      console.log(token)
-      if(status === STATUSES.SUCCESS){
-        localStorage.setItem('jwtToken', token)
-        return navigate("/")
-      }
+      
+     navigate("/")
+      // window.location.href = '/'
       if(status === STATUSES.ERROR){
         alert("Something went wrong, try again")
+        return
       }
   }
   
@@ -41,7 +40,7 @@ const LoginForm = () => {
 <div className=" h-screen overflow-hidden flex items-center justify-center">
   <div className=" mt-10  bg-white lg:w-5/12 md:6/12 w-10/12 shadow-3xl">
     <div className=" absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full p-4 md:p-8">
-      <h3>Hello,{data.userName}</h3>
+      
     </div>
     <form className="p-12 md:p-24" onSubmit = {handleSubmit}>
       <div className="flex items-center text-sm mb-6 md:mb-8">

@@ -1,14 +1,32 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-
+import { logOut } from "../../../store/authSlice"
+import { fetchCartItems } from "../../../store/cartSlice"
+import { useEffect } from "react"
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
+    const {data:user} = useSelector((state)=>state.auth)
     const navigate = useNavigate()
-    const items = useSelector((state)=>state.cart)
+    const {items} = useSelector((state)=>state.cart)
+    const dispatch = useDispatch()
 
+    const handleLogOut = ()=>{
+        //empty the data from auth store
+        dispatch(logOut())
+
+        //clear localstorage
+        localStorage.clear()
+        navigate("/login")
+    }
+
+    useEffect(()=>{
+        dispatch(fetchCartItems())
+    },[dispatch])
 
   return (
-    <nav className="fixed z-10 w-full bg-white md:absolute md:bg-transparent">
+ <>
+     <nav className="fixed z-10 w-full bg-white md:absolute md:bg-transparent">
     <div className="container m-auto px-2 md:px-12 lg:px-7">
         <div className="flex flex-wrap items-center justify-between py-3 gap-6 md:py-4 md:gap-0">
             <div className="w-full px-6 flex justify-between lg:w-max md:px-0">
@@ -27,38 +45,61 @@ export default function Navbar() {
                 <div className="text-gray-600 lg:pr-4">
                     <ul className="space-y-6 tracking-wide font-medium text-sm md:flex md:space-y-0">
                         <li>
-                            <a href="#" className="block md:px-4 transition hover:text-yellow-700">
-<span>I've a restaurant</span>
-                            </a>
+                            
+                            <Link to = '/profile' className="block md:px-4 transition hover:text-yellow-700">
+<span>Profile</span>
+                            </Link>
                         </li>
-                        <li>
-                            <a href="#" className="block md:px-4 transition hover:text-yellow-700">
-<span>Wishlist</span>
-                            </a>
-                        </li>
-                        <li>
+                       
+                       {
+                        items.length !== 0 && (
+                            <li>
                             <a href="#" onClick = {()=>navigate("/cart")} className="block md:px-4 transition hover:text-yellow-700">
 <span>Cart</span> <sup>{items.length}</sup>
                             </a>
                         </li>
+                        )
+                       }
                     </ul>
                 </div>
 
                 <div className="w-full space-y-2 border-yellow-200 lg:space-y-0 md:w-max lg:border-l">
-                    <button type="button" onClick={()=>navigate("/register")} title="Start buying" className="w-full py-3 px-6 text-center rounded-full transition hover:bg-yellow-300 active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
-                        <span className="block text-yellow-800 font-semibold text-sm">
-                            Sign up
-                        </span>
-                    </button>
-                    <button type="button" onClick={()=>navigate("/login")} title="Start buying" className="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
-                        <span className="block text-yellow-900 font-semibold text-sm">
-                            Login
-                        </span>
-                    </button>
+       {
+
+            user.length ==0 && 
+            (localStorage.getItem("token") == "" || localStorage.getItem("token") == null || localStorage.getItem("token") == undefined)?
+
+            (
+             <>
+                <button type="button" onClick={()=>navigate("/register")} title="Start buying" className="w-full py-3 px-6 text-center rounded-full transition hover:bg-yellow-300 active:bg-yellow-200 focus:bg-yellow-100 sm:w-max">
+                <span className="block text-yellow-800 font-semibold text-sm">
+                    Sign up
+                </span>
+            </button>
+            <button type="button" onClick={()=>navigate("/login")} title="Start buying" className="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
+                <span className="block text-yellow-900 font-semibold text-sm">
+                    Login
+                </span>
+            </button>
+             </>
+               
+            ) :   <button type="button" onClick= {handleLogOut} title="Start buying" className="w-full py-3 px-6 text-center rounded-full transition bg-yellow-300 hover:bg-yellow-100 active:bg-yellow-400 focus:bg-yellow-300 sm:w-max">
+            <span className="block text-yellow-900 font-semibold text-sm">
+                Logout
+            </span>
+        </button>
+
+
+
+
+       }
+
+                  
                 </div>
             </div>
         </div>
     </div>
 </nav>
+ </>
   )
 }

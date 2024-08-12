@@ -1,4 +1,5 @@
 
+import Footer from "../../globals/components/footer/Footer"
 import Hero from "./components/Hero"
 import Product from "./components/Product"
 
@@ -10,6 +11,7 @@ import Product from "./components/Product"
       <>
       <Hero />
       <Product />
+      <Footer />
       </>
     )
   }

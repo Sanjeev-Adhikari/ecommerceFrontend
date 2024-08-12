@@ -11,6 +11,12 @@ import Home from "./pages/home/Home"
 import Cart from "./pages/cart/Cart"
 import Login from "./pages/auth/login/Login"
 import RegisterForm from "./pages/auth/register/RegisterForm"
+import ProductDetails from "./pages/productDetails/ProductDetails"
+import Checkout from "./pages/checkout/Checkout"
+
+import KhaltiSuccess from "./pages/success/KhaltiSuccess"
+import UserProfile from "./pages/profile/UserProfile"
+import MyOrders from "./pages/myorders/MyOrders"
 function App() {
 
 
@@ -27,10 +33,14 @@ function App() {
       <Route path = "/login" element = {<Login/>}/>
       <Route path = "/register" element = {<RegisterForm/>}/>
       <Route path = "/cart" element = {<Cart/>} />
-      
+      <Route path = "/productdetails/:id" element = {<ProductDetails/>} />
+      <Route path = "/checkout" element = {<Checkout/>}/>
+      <Route path = "/success" element = {<KhaltiSuccess />}/>
+      <Route path = "/profile" element = {<UserProfile />}/>
+      <Route path = "/myorders" element = {<MyOrders />}/>
     </Routes>
     </BrowserRouter>
-<Footer />
+
     </Provider>
     </>
   )

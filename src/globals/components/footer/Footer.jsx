@@ -94,7 +94,7 @@ const Footer = () => {
       </div>
     </div>
     <p class="mt-8 text-xs text-gray-800">
-      © 2022 Comany Name
+      © 2024 GreenTechnologies
     </p>
   </div>
 </footer>

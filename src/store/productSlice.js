@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { STATUSES } from "../globals/misc/statuses";
+import {API} from "../http";
 
 const productSlice = createSlice({
     name : "product",
     initialState : {
         data : [],
-        status : STATUSES.SUCCESS
+        status : STATUSES.SUCCESS,
+        selectedProduct : {}
     },
     reducers : {
         setProducts(state,action){
@@ -14,6 +15,9 @@ const productSlice = createSlice({
         },
         setStatus(state,action){
             state.status = action.payload
+        },
+        setselectedProduct(state,action){
+            state.selectedProduct = action.payload
         }
     },
     // provided by redux-toolkit
@@ -30,7 +34,7 @@ const productSlice = createSlice({
     //     })
     // }
 });
-export const {setProducts, setStatus} = productSlice.actions
+export const {setProducts, setStatus, setselectedProduct} = productSlice.actions
 export default productSlice.reducer
 
 // export const fetchProducts = createAsyncThunk("product/fetch" ,async()=>{
@@ -44,8 +48,26 @@ export function fetchProducts(){
     return async function fetchProductThunk(dispatch, getState){
         dispatch(setStatus(STATUSES.LOADING))
         try {
-            const response = await axios.get("http://localhost:3000/api/products")
+            const response = await API.get("/products")
             dispatch(setProducts(response.data.data))
+            dispatch(setStatus(STATUSES.SUCCESS))
+        }catch (error) {
+            console.log(error)
+            dispatch(setStatus(STATUSES.ERROR))
+   
+        } 
+
+    }
+
+}
+
+
+export function fetchProductDetails(productId){
+    return async function fetchProductDetailsThunk(dispatch, getState){
+        dispatch(setStatus(STATUSES.LOADING))
+        try {
+            const response = await API.get(`/products/${productId}`)
+            dispatch(setselectedProduct(response.data.data))
             dispatch(setStatus(STATUSES.SUCCESS))
         }catch (error) {
             console.log(error)
