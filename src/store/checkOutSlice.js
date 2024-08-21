@@ -21,11 +21,21 @@ const checkOutSlice = createSlice({
         },
         setOrders(state,action){
             state.orders = action.payload
+        },
+        updateOrderStatus(state,action){
+            const status = action.payload.status
+            const orderId = action.payload.orderId
+
+            const updatedOrder = state.orders.map((order)=>
+                order._id === orderId ? {...order,orderStatus : status} : order
+        
+            )
+            state.orders = updatedOrder
         }
     },
     
 });
-export const {setOrder, setStatus, setOrders} = checkOutSlice.actions
+export const {setOrder, setStatus, setOrders, updateOrderStatus} = checkOutSlice.actions
 export default checkOutSlice.reducer
 
 
@@ -60,7 +70,11 @@ export function fetchOrder(data){
     
 }
 
-
+export function updateOrderStatusInStore(data){
+    return async function updateOrderStatusInStoreThunk(dispatch){
+        dispatch(updateOrderStatus(data))
+    }
+}
 
 
 

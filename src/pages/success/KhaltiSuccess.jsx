@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { APIAuthenticated } from '../../http'
 import Loader from '../../globals/components/loader/Loader'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { emptyCart } from '../../store/cartSlice'
 
 const KhaltiSuccess = () => {
-const navigate = useNavigate()
 const dispatch =useDispatch()
 const queryParams = new URLSearchParams(location.search)
 const pidx = queryParams.get("pidx")
-const [loading,setLoading] =useState(true)
+const [loading,setLoading] = useState(true)
 
 const verifyPidx = async()=>{
    try {
@@ -18,6 +16,7 @@ const verifyPidx = async()=>{
     if(response.status === 200){
       setLoading(false)
       dispatch(emptyCart())
+      window.location.href= '/myorders'
        
     }
    } catch (error) {

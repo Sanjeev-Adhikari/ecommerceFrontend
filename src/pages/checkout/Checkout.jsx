@@ -38,7 +38,7 @@ const Checkout = () => {
     {
     alert("Order Placed Successfully")
        // Redirect to the home page
-    window.location.href = "/";
+    window.location.href = "/myorders";
     return;
     }
      

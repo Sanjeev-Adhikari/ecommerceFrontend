@@ -2,11 +2,10 @@ import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { loginUser } from "../../../../store/authSlice"
 import { STATUSES } from "../../../../globals/misc/statuses"
-import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 const LoginForm = () => {
-  const navigate = useNavigate()
  const dispatch = useDispatch()
   const {data, token, status} = useSelector((state)=>state.auth)
   const [userData, setUserData] = useState({
@@ -25,8 +24,11 @@ const LoginForm = () => {
       e.preventDefault()
       dispatch(loginUser(userData))
       
-     navigate("/")
-      // window.location.href = '/'
+    //  navigate("/")
+     
+      if(status === STATUSES.SUCCESS){
+        return  window.location.href = '/'
+      }
       if(status === STATUSES.ERROR){
         alert("Something went wrong, try again")
         return
@@ -56,6 +58,12 @@ const LoginForm = () => {
         <input type="password" name="password" id="password" onChange = {handleChange} className="bg-gray-200 pl-12 py-2 md:py-4 focus:outline-none w-full" placeholder="Password" />
       </div>
       <button className="bg-yellow-400 hover:bg-yellow-500 font-medium p-2 md:p-4 text-white uppercase w-full rounded-full">Login</button>
+      <div className="flex justify-center items-center">
+  <Link to={'/forgotpassword'} className="text-blue-500 hover:text-blue-700 underline">
+    Forgot password? Click here
+  </Link>
+</div>
+
     </form>
   </div>
  </div>

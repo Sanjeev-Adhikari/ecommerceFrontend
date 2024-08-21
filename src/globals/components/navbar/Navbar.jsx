@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { logOut } from "../../../store/authSlice"
+import { fetchProfile, logOut } from "../../../store/authSlice"
 import { fetchCartItems } from "../../../store/cartSlice"
 import { useEffect } from "react"
 import { Link } from 'react-router-dom';
@@ -17,11 +17,12 @@ export default function Navbar() {
 
         //clear localstorage
         localStorage.clear()
-        navigate("/login")
+       window.location.href = '/login'
     }
 
     useEffect(()=>{
         dispatch(fetchCartItems())
+        dispatch(fetchProfile())
     },[dispatch])
 
   return (
@@ -44,12 +45,15 @@ export default function Navbar() {
             <div className="hidden w-full lg:flex flex-wrap justify-end items-center space-y-6 p-6 rounded-xl bg-white md:space-y-0 md:p-0 md:flex-nowrap md:bg-transparent lg:w-7/12">
                 <div className="text-gray-600 lg:pr-4">
                     <ul className="space-y-6 tracking-wide font-medium text-sm md:flex md:space-y-0">
+                     {
+                        user.length > 0 || localStorage.getItem('token') &&
                         <li>
                             
-                            <Link to = '/profile' className="block md:px-4 transition hover:text-yellow-700">
+                        <Link to = '/profile' className="block md:px-4 transition hover:text-yellow-700">
 <span>Profile</span>
-                            </Link>
-                        </li>
+                        </Link>
+                    </li>
+                     }
                        
                        {
                         items.length !== 0 && (

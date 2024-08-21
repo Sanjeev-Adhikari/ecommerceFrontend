@@ -1,6 +1,8 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 const UserProfile = () => {
+
+    const navigate = useNavigate()
   return (
     <>
 
@@ -14,25 +16,36 @@ const UserProfile = () => {
                     Hello, user here is you overall summary in our store
                     </p>
                 </div> 
-                <div className="grid grid-cols-2 gap-4 px-2 w-full">
-                    <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none" style={{color: "blue", display: 'flex', alignItems: 'center', border: '1px solid navy'}}>
+                <div  className="grid grid-cols-2 gap-4 px-2 w-full">
+                    <Link to ='/myorders'  className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none" style={{color: "blue", display: 'flex', alignItems: 'center', border: '1px solid navy'}}>
                     
-                    <Link to= '/myorders' className="text-base font-medium text-navy-700 dark:text-white" >
+                    <p className="text-base font-medium text-navy-700 dark:text-white" >
                         My orders
+                    </p>
                     </Link>
-                    </div>
-                    <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none" style={{color: "blue", display: 'flex', alignItems: 'center', border: '1px solid navy'}}>
+                    <Link to ='/myqrs'  className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none" style={{color: "blue", display: 'flex', alignItems: 'center', border: '1px solid navy'}}>
                     
-                    <Link to= '/myorders' className="text-base font-medium text-navy-700 dark:text-white" >
-                        My orders
+                    <p className="text-base font-medium text-navy-700 dark:text-white" >
+                        My QRs
+                    </p>
                     </Link>
-                    </div>
-                    <div className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none" style={{color: "blue", display: 'flex', alignItems: 'center', border: '1px solid navy'}}>
+                   
+                    <Link to ='/myorders'  className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none" style={{color: "blue", display: 'flex', alignItems: 'center', border: '1px solid navy'}}>
                     
-                    <Link to= '/myorders' className="text-base font-medium text-navy-700 dark:text-white" >
+                    <p className="text-base font-medium text-navy-700 dark:text-white" >
                         My orders
+                    </p>
                     </Link>
-                    </div>
+                   
+
+                    <Link to ='/myorders'  className="flex flex-col items-start justify-center rounded-2xl bg-white bg-clip-border px-3 py-4 shadow-3xl shadow-shadow-500 dark:!bg-navy-700 dark:shadow-none" style={{color: "blue", display: 'flex', alignItems: 'center', border: '1px solid navy'}}>
+                    
+                    <p className="text-base font-medium text-navy-700 dark:text-white" >
+                        My orders
+                    </p>
+                    </Link>
+                   
+                   
                 </div>
             </div>  
             
