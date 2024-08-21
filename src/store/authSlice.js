@@ -50,7 +50,6 @@ export function registerUser(data){
        dispatch(setStatus(STATUSES.LOADING))
         try{
         const response = await API.post("auth/register",data)
-        //  dispatch(setUser(response.data.data))
          dispatch(setStatus(STATUSES.SUCCESS))
         }catch (error){
             console.log(error)
